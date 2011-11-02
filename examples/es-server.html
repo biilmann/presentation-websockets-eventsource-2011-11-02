@@ -1,0 +1,28 @@
+<!doctype html>
+<head>
+  <title>EventSource</title>
+</head>
+
+<h1>EventSource</h1>
+<div id="output"></div>
+
+<script>
+
+  var output = document.getElementById("output");
+  var append = function(msg) {
+    var p = document.createElement("p");
+    p.appendChild(document.createTextNode(msg));
+    output.appendChild(p);
+  }
+
+  var es = new EventSource("/es");
+  es.onopen = function() {
+    append("Connection opened");
+  }
+  es.onmessage = function(e) {
+    append(e.data);
+  }
+  es.onerror = function() {}
+  es.onclose = function() {}
+</script>
+

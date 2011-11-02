@@ -1,0 +1,33 @@
+<!doctype html>
+<head>
+  <title>Long Polling</title>
+</head>
+
+<h1>Long polling</h1>
+<div id="output"></div>
+
+<script>
+
+  var output = document.getElementById("output");
+  var append = function(msg) {
+    var p = document.createElement("p");
+    p.appendChild(document.createTextNode(msg));
+    output.appendChild(p);
+  }
+
+  var poll = function() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/poll", true);
+    xhr.onreadystatechange = function() {
+      if (this.readyState == 4) {
+        append(this.responseText);
+        poll();
+      }
+    }
+    xhr.send(null);
+  }
+
+  append("Connecting");
+  poll();
+
+</script>
