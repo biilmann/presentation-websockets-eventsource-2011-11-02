@@ -1,6 +1,9 @@
 Websockets Handshake:
 =====================
 
+This is the handshake described in http://tools.ietf.org/html/draft-ietf-hybi-thewebsocketprotocol-17
+
+
 Client:
 -------
 
@@ -13,6 +16,7 @@ Client:
     Sec-WebSocket-Protocol: chat, superchat
     Sec-WebSocket-Version: 13
 
+
 Server:
 -------
 
@@ -21,6 +25,11 @@ Server:
     Connection: Upgrade
     Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
     Sec-WebSocket-Protocol: chat
+
+
+The "Sec-WebSocket-Accept" is a special GUID from the spec concattenated
+with the Sec-WebSocket-Key header from the client request as a base64
+sha1 digest.
 
 
 Frames:
@@ -46,3 +55,9 @@ Frames:
      |                     Payload Data continued ...                |
      +---------------------------------------------------------------+
 
+
+After the initial handshake the frames are sent from both client and
+server in this format.
+
+Masking is used for any messages sent from the client to the server to
+avoid cache poisoning by spoofing HTTP requests.

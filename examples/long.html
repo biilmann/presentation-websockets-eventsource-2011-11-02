@@ -4,21 +4,31 @@
 </head>
 
 <h1>Long polling</h1>
+
+<p>This is a simple example of a basic long polling implementation.
+
+<p>With long polling a single Ajax request is held open for as long
+   as possible. The server only closes the connection after sending a
+   new event.
+
 <div id="output"></div>
 
 <script>
 
-  var output = document.getElementById("output");
-  var append = function(msg) {
+  // Small helper to append text to the output div
+  var output = document.getElementById("output"),
+      append = function(msg) {
     var p = document.createElement("p");
     p.appendChild(document.createTextNode(msg));
     output.appendChild(p);
   }
 
+  // The polling method
   var poll = function() {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "/poll", true);
     xhr.onreadystatechange = function() {
+      // Readystate 4 == DONE
       if (this.readyState == 4) {
         append(this.responseText);
         poll();
@@ -28,6 +38,8 @@
   }
 
   append("Connecting");
+
+  // Start polling
   poll();
 
 </script>

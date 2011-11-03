@@ -1,0 +1,46 @@
+<!doctype html>
+<head>
+  <title>EventSource</title>
+</head>
+
+<h1>EventSource</h1>
+
+<p>This is a simple example of using the EventSource api
+
+<p>With EventSource a single HTTP request is kept open indefinitely 
+   and the server can use it to send events whenever it wants.
+
+<p>The EventSource API will automatically retry if the connection
+   breaks at some point.
+
+<div id="output"></div>
+
+<script>
+
+  // Small helper to append text to the output div
+  var output = document.getElementById("output");
+  var append = function(msg) {
+    var p = document.createElement("p");
+    p.appendChild(document.createTextNode(msg));
+    output.appendChild(p);
+  }
+
+  // Create an EventSource connecting to "/es"
+  var es = new EventSource("/es");
+  es.onopen = function() {
+    append("Connection opened");
+  }
+  es.onmessage = function(e) {
+    append(e.data);
+  }
+  es.onerror = function() {}
+  es.onclose = function() {}
+
+  // This can be used to act on events with another type than the
+  // default "message" type (not used in the example)
+  es.addEventListener("notification", function(e) {
+    console.log(e.data);
+  });
+
+</script>
+

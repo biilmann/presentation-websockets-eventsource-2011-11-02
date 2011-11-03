@@ -4,23 +4,32 @@
 </head>
 
 <h1>WebSockets</h1>
+
+<p>This is a simple example of using the WebSocket API
+
+<p>With WebSocket a bidirection socket is established between
+   the client and the server.
+
 <div id="output"></div>
 
 <script>
 
-  var output = document.getElementById("output");
-  var append = function(msg) {
+  // Small helper to append text to the output div
+  var output = document.getElementById("output"),
+      append = function(msg) {
     var p = document.createElement("p");
     p.appendChild(document.createTextNode(msg));
     output.appendChild(p);
   }
 
+  // Create a new WebSocket. Note the "ws://" protocol
   var ws = new WebSocket("ws://localhost:1337/ws");
   ws.onopen = function() {
     append("Socket open");
   }
   ws.onmessage = function(msg) {
     append(msg.data);
+    // This sends a message back to the server over the socket
     ws.send("Got your message: " + msg.data);
   }
   ws.onerror = function() {}
