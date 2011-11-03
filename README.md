@@ -3,13 +3,11 @@ Websockets and EventSource
 
 This was a presentation I gave in MadridJS November 2, 2011.
 
-To see the minimalist slides open index.html - made with Big JS:
-
-https://github.com/tmcw/big
+To see the minimalist slides open index.html (made with Big JS https://github.com/tmcw/big)
 
 The meaty part of the presentation is in the *examples* dir.
 
-In the presentations the examples were shown in this order:
+In the presentation the examples were shown in this order:
 
 1.  long.html
 2.  long.js
